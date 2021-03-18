@@ -3,9 +3,6 @@ pipeline {
     environment {
         MY127WS_ENV = "pipeline"
     }
-    options {
-        compressBuildLog()
-    }
     stages {
         stage('Build') {
             steps {
