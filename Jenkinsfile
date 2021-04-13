@@ -7,6 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo $GIT_COMMIT'
+                sh 'env'
                 milestone(10)
             }
         }
