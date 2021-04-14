@@ -8,7 +8,7 @@ pipeline {
             agent { label "my127ws" }
             steps {
                 sh 'echo $GIT_COMMIT'
-                sh 'env'
+                sh 'env | sort -n'
                 milestone(10)
             }
             post {
@@ -29,7 +29,7 @@ pipeline {
             }
             steps {
                 sh 'echo $GIT_COMMIT'
-                sh 'env'
+                sh 'env | sort -n'
             }
             post {
                 always {
