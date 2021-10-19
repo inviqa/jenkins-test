@@ -1,0 +1,9 @@
+{
+  "inviqa/docker": {
+    "v0.1.0": {
+      "type": "tar.gz",
+      "url": "https://github.com/inviqa/harness-docker/archive/refs/heads/add-jenkinsfile.tar.gz",
+      "date": "2021-10-19"
+    }
+  }
+}

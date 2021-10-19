@@ -1,41 +1,38 @@
 pipeline {
-    agent none
+    agent { label "my127ws-preview" }
     environment {
+        COMPOSE_DOCKER_CLI_BUILD = 1
+        DOCKER_BUILDKIT = 1
         MY127WS_ENV = "pipeline"
     }
+    triggers { cron(env.BRANCH_NAME == 'develop' ? 'H H(0-6) * * *' : '') }
     stages {
-        stage('Build') {
-            agent { label "my127ws" }
+
+        stage('Setup') {
             steps {
-                sh 'echo $GIT_COMMIT'
-                sh 'env | sort -n'
+                sh 'ws harness download'
+                sh 'ws harness prepare'
+                sh 'ws enable console'
                 milestone(10)
             }
-            post {
-                always {
-                    cleanWs()
-                }
+        }
+        stage('Test')  {
+            parallel {
+                stage('helm kubeval app')  { steps { sh 'ws helm kubeval --cleanup app' } }
             }
         }
-        stage('Deploy') {
-            agent { label "my127ws" }
-            when {
-                not { triggeredBy 'TimerTrigger' }
-                anyOf {
-                    branch 'main'
-                    branch 'develop'
-                    branch pattern: "release/*"
-                }
-            }
+        stage('Build') {
             steps {
-                sh 'echo $GIT_COMMIT'
-                sh 'env | sort -n'
+                sh 'ws enable'
+                milestone(20)
             }
-            post {
-                always {
-                    cleanWs()
-                }
-            }
+        }
+
+    }
+    post {
+        always {
+            sh 'ws destroy'
+            cleanWs()
         }
     }
 }
