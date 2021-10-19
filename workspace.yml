@@ -1,0 +1,4 @@
+workspace('jenkins-test'):
+  harness: inviqa/docker:v0.1.0
+
+harness.repository.source('name'): ./harnesses.json
