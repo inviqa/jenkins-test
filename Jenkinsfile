@@ -5,7 +5,7 @@ pipeline {
     }
     stages {
         stage('Build') {
-            agent { label "my127ws" }
+            agent { label "my127ws-preview" }
             steps {
                 sh 'echo $GIT_COMMIT'
                 sh 'env | sort -n'
@@ -18,7 +18,7 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent { label "my127ws" }
+            agent { label "my127ws-preview" }
             when {
                 not { triggeredBy 'TimerTrigger' }
                 anyOf {
