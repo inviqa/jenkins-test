@@ -27,10 +27,6 @@ pipeline {
                 milestone(20)
             }
         }
-        stage('End-to-end Test') {
-            parallel {
-            }
-        }
 
     }
     post {
