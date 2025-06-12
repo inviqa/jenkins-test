@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent { label 'linux-amd64' }
     environment {
         MY127WS_ENV = "pipeline"
     }
