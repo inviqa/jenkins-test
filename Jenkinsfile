@@ -11,8 +11,8 @@ pipeline {
         DOCKER_BUILDKIT = 1
         MY127WS_KEY = credentials('base-my127ws-key-20190523')
         // MY127WS_KEY = "AAA"
-        // SLACK_NOTIFICATION_CHANNEL = credentials('slack-notification-channel')
-        SLACK_NOTIFICATION_CHANNEL = "BBB"
+        SLACK_NOTIFICATION_CHANNEL = credentials('slack-notification-channel')
+        // SLACK_NOTIFICATION_CHANNEL = "BBB"
         // SLACK_TOKEN_CREDENTIAL_ID = credentials('slack-token-credential-id')
         SLACK_TOKEN_CREDENTIAL_ID = "CCC"
     }
