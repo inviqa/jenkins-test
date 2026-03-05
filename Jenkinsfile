@@ -1,11 +1,25 @@
 pipeline {
-    agent none
+    agent { label 'linux-amd64-preview' }
     environment {
         MY127WS_ENV = "pipeline"
     }
     stages {
+        stage('OS Check') {
+            steps {
+                sh 'cat /etc/os-release | grep PRETTY_NAME'
+                sh 'java -version'
+                sh 'docker --version'
+                sh 'php -v'
+            }
+        }
+        stage('Build Test') {
+            steps {
+                sh 'echo "Testing basic functionality..."'
+                sh 'docker run --rm hello-world'
+            }
+        }
         stage('Build') {
-            agent { label "my127ws" }
+            agent { label "my127ws-preview" }
             steps {
                 sh 'echo $GIT_COMMIT'
                 sh 'env | sort -n'
@@ -18,7 +32,7 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent { label "my127ws" }
+            agent { label "my127ws-preview" }
             when {
                 not { triggeredBy 'TimerTrigger' }
                 anyOf {
