@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'linux-arm64-preview' }
+    agent { label 'linux-arm64' }
     environment {
         MY127WS_ENV = "pipeline"
     }
