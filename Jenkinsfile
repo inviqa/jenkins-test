@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'linux.amd64' }
+    agent { label 'linux-amd64-preview' }
     environment {
         MY127WS_ENV = "pipeline"
     }
@@ -19,7 +19,7 @@ pipeline {
             }
         }
         stage('Build') {
-            agent { label "my127ws" }
+            agent { label "my127ws-preview" }
             steps {
                 sh 'echo $GIT_COMMIT'
                 sh 'env | sort -n'
@@ -32,7 +32,7 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent { label "my127ws" }
+            agent { label "my127ws-preview" }
             when {
                 not { triggeredBy 'TimerTrigger' }
                 anyOf {
